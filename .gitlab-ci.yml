@@ -7,6 +7,7 @@ eslint:
     NODE_VERSION: 14.1.0
   script:
     - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+    - ". ~/.nvm/nvm.sh"
     - nvm install $NODE_VERSION
     - npm install
     - npm run lint
