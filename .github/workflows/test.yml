@@ -23,6 +23,9 @@ jobs:
       # указываем action, который будет запущен как часть job
       # В текущем случае это клонирование репозитория
       - uses: actions/checkout@v2
+      # Установка зависимостей проекта
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
       # Кеширование npm
       - name: Cache dependencies
         # включаем специальный action
@@ -33,11 +36,6 @@ jobs:
           path: ~/.npm
           # ключ кеширования (хеш)
           key: npm-${{ hashFiles('package-lock.json') }}
-          # ключ для восстановления кеша
-          restore-keys: npm-
-      # Установка зависимостей проекта
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
   # название job, на которое можно ссылаться из других мест,
   # например, когда нам нужно указать, что две jobs
   # работают последовательно:
@@ -61,18 +59,6 @@ jobs:
       # указываем action, который будет запущен как часть job
       # В текущем случае это клонирование репозитория
       - uses: actions/checkout@v2
-      # Кеширование npm
-      - name: Cache dependencies
-        # включаем специальный action
-        uses: actions/cache@v2
-        # передаем параметры
-        with:
-          # что кешировать (путь)
-          path: ~/.npm
-          # ключ кеширования (хеш)
-          key: npm-${{ hashFiles('package-lock.json') }}
-          # ключ для восстановления кеша
-          restore-keys: npm-
       # Установка зависимостей проекта
       - name: Install dependencies
         run: npm ci --ignore-scripts
@@ -95,18 +81,6 @@ jobs:
       # указываем action, который будет запущен как часть job
       # В текущем случае это клонирование репозитория
       - uses: actions/checkout@v2
-      # Кеширование npm
-      - name: Cache dependencies
-        # включаем специальный action
-        uses: actions/cache@v2
-        # передаем параметры
-        with:
-          # что кешировать (путь)
-          path: ~/.npm
-          # ключ кеширования (хеш)
-          key: npm-${{ hashFiles('package-lock.json') }}
-          # ключ для восстановления кеша
-          restore-keys: npm-
       # Установка зависимостей проекта
       - name: Install dependencies
         run: npm install
