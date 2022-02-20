@@ -7,32 +7,33 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container:
-      image: node:14.17.0-alpine
+      image: node:14.19.0-alpine
     steps:
+      - name: Install git
+        run: apk --update add git tar
       - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
+          path: node_modules
+          key: npm-${{ hashFiles('package-lock.json') }}-v4
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
   eslint:
     needs: build
     name: ESLint
     runs-on: ubuntu-latest
     container:
-      image: node:14.17.0-alpine
+      image: node:14.19.0-alpine
     steps:
+      - name: Install git
+        run: apk --update add git tar
       - uses: actions/checkout@v2
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci --ignore-scripts
+          path: node_modules
+          key: npm-${{ hashFiles('package-lock.json') }}-v4
       - name: Lint source code with ESLint
         run: npm run lint
   prettier:
@@ -40,16 +41,15 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     container:
-      image: node:14.17.0-alpine
+      image: node:14.19.0-alpine
     steps:
+      - name: Install git
+        run: apk --update add git tar
       - uses: actions/checkout@v2
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci --ignore-scripts
+          path: node_modules
+          key: npm-${{ hashFiles('package-lock.json') }}-v4
       - name: Lint source code with Prettier
         run: npm run check:format
