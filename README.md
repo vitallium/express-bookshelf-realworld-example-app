@@ -57,4 +57,4 @@ $ java -jar target/realworld-server-tester-0.1.0-SNAPSHOT-standalone.jar http://
 
 ## License
 
-MIT
+MIT 
