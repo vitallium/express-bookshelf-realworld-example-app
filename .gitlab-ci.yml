@@ -1,5 +1,6 @@
 stages:
   - lint
+  - deploy
 
 cache:
   key:
@@ -24,4 +25,16 @@ prettier:
   script:
     - npm install
     - npm run check:format
+
+deploy:
+  image: node:14.17.0-alpine
+  stage: deploy
+  script:
+    - apk --update add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - scp -r $PWD deploy@ec2-3-84-29-131.compute-1.amazonaws.com:~/realworld/
 
