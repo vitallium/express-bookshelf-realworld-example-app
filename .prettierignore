@@ -1,3 +1,6 @@
 _coverage
 .github/
+github/
 ecosystem.config.js
+.gitlab.yml
+.gitlab-ci.yml

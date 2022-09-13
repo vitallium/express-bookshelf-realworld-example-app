@@ -1,6 +1,6 @@
 # Table of Contents
 
-## Structure
+## Structure 123
 
 - [Group by Coupling](structure/group-by-coupling.md)
 - [Initializers](structure/initializers.md)
